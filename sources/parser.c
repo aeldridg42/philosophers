@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:37:47 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/10 17:36:01 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/10 18:45:46 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	parser(char **argv, int argc)
 	int	i;
 	int	i2;
 
-	i = 0;
 	if (argc == 5 || argc == 6)
 	{
 		while (--argc)
 		{
 			i2 = 0;
+			i = 0;
 			while (argv[++i][i2])
 			{
 				if (!(ft_isdigit(argv[i][i2++])))
