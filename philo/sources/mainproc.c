@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:51:05 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 18:28:44 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:37:08 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	lockprint(t_philo *philo, char *str)
 
 static void	forktake(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->rules->mutex[philo->l_fork]);
-	lockprint(philo, " has taken a left fork\n");
 	pthread_mutex_lock(&philo->rules->mutex[philo->r_fork]);
 	lockprint(philo, " has taken a right fork\n");
+	pthread_mutex_lock(&philo->rules->mutex[philo->l_fork]);
+	lockprint(philo, " has taken a left fork\n");
 }
 
 int	eeeating(t_philo *philo)
@@ -40,8 +40,8 @@ int	eeeating(t_philo *philo)
 	uusleep(philo->rules->time2eat, philo->rules->current);
 	if (philo->rules->isdead == 0)
 		return (-1);
-	pthread_mutex_unlock(&philo->rules->mutex[philo->l_fork]);
 	pthread_mutex_unlock(&philo->rules->mutex[philo->r_fork]);
+	pthread_mutex_unlock(&philo->rules->mutex[philo->l_fork]);
 	if (philo->rules->isdead == 0)
 		return (-1);
 	gettimeofday(&philo->rules->current, NULL);

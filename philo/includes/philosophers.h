@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:30:59 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 18:17:41 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:57:10 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		eeeating(t_philo *philo);
 int		ft_atoi_s(const char *str);
 int		ft_isdigit(int c);
 void	forks(t_rules *rules);
-void	thread_start(t_rules *rules);
+int		thread_start(t_rules *rules);
 void	*loop(void *a);
 void	checkphilo(t_rules *rules);
 void	uusleep(long time, struct timeval now);

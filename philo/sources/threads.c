@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:48:10 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 18:07:25 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:58:59 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*loop(void *a)
 	t_philo	*philo;
 
 	philo = (t_philo *)a;
+	pthread_detach(philo->t);
 	philo->lasteat = philo->rules->start;
 	while (1)
 	{
@@ -49,7 +50,7 @@ void	forks(t_rules *rules)
 	}
 }
 
-void	thread_start(t_rules *rules)
+int	thread_start(t_rules *rules)
 {
 	int	i;
 
@@ -58,9 +59,9 @@ void	thread_start(t_rules *rules)
 	{
 		if (i % 2)
 		{
-			pthread_create(&rules->philos[i].t, NULL, loop,
-				(void *)&rules->philos[i]);
-			pthread_detach(rules->philos[i].t);
+			if (pthread_create(&rules->philos[i].t, NULL, loop,
+					(void *)&rules->philos[i]) != 0)
+				return (1);
 			usleep(50);
 		}
 	}
@@ -69,10 +70,11 @@ void	thread_start(t_rules *rules)
 	{
 		if (i % 2 == 0)
 		{
-			pthread_create(&rules->philos[i].t, NULL, loop,
-				(void *)&rules->philos[i]);
-			pthread_detach(rules->philos[i].t);
+			if (pthread_create(&rules->philos[i].t, NULL, loop,
+					(void *)&rules->philos[i]) != 0)
+				return (1);
 			usleep(50);
 		}
 	}
+	return (0);
 }
