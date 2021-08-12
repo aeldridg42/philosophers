@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:30:59 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 19:57:10 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/12 16:14:41 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,26 @@ typedef struct s_rules
 	int				isdead;
 	long			start;
 	t_philo			*philos;
-	struct timeval	current1;
 	struct timeval	current;
+	struct timeval	start_time;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*mutex;
 }					t_rules;
 
-long	get_ms(struct timeval current);
-long	get_time(void);
 int		checkvalue(t_rules *rules);
 int		parser(char **argv, int argc);
 int		eeeating(t_philo *philo);
 int		ft_atoi_s(const char *str);
 int		ft_isdigit(int c);
-void	forks(t_rules *rules);
 int		thread_start(t_rules *rules);
+int		mutex_init(t_rules *rules);
+int		init(char **argv, t_rules *rules, int argc);
+long	get_ms(struct timeval current);
+long	get_time(void);
 void	*loop(void *a);
+void	forks(t_rules *rules);
 void	checkphilo(t_rules *rules);
 void	uusleep(long time, struct timeval now);
+void	magicfree(t_rules *rules);
 
 #endif

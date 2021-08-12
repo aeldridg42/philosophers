@@ -7,6 +7,8 @@ SRCS		= 	main.c \
 				sources/threads.c \
 				sources/time.c \
 				sources/checkphilo.c \
+				sources/init.c \
+				sources/magicfree.c \
 
 OBJS		= 	${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:51:05 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 19:37:08 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/12 11:48:43 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	lockprint(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->rules->write);
-	printf("%ld  %d%s", get_ms(philo->rules->current1), philo->num, str);
+	printf("%ld  %d%s", get_ms(philo->rules->start_time), philo->num, str);
 	pthread_mutex_unlock(&philo->rules->write);
 }
 

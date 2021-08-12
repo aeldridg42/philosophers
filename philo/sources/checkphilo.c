@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 18:14:11 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 18:25:12 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/12 16:06:42 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	everyoneate(t_rules *rules)
 	rules->isdead = 0;
 	pthread_mutex_lock(&rules->write);
 	usleep(50);
-	printf(RED"%ld  everyone ate %d times\n", get_ms(rules->current1),
+	printf(RED"%ld  everyone ate %d times\n", get_ms(rules->start_time),
 		rules->eat_times);
 }
 
@@ -28,7 +28,7 @@ static int	someonedead(t_rules *rules, int i)
 		rules->isdead = 0;
 		pthread_mutex_lock(&rules->write);
 		usleep(50);
-		printf(RED"%ld  %d died\n", get_ms(rules->current1), i);
+		printf(RED"%ld  %d died\n", get_ms(rules->start_time), i);
 		return (1);
 	}
 	return (0);
