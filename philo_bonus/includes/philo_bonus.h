@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:22:04 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 20:35:36 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 13:27:29 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ typedef struct s_rules
 	struct timeval	start_time;
 }					t_rules;
 
+int		parser(char **argv, int argc);
+int		ft_isdigit(int c);
+int		ft_isdigit(int c);
+int		ft_atoi_s(const char *str);
 long	get_time(void);
-void	uusleep(long time, struct timeval now);
 long	get_ms(struct timeval current);
+void	uusleep(long time, struct timeval now);
 void	eating(t_rules *main);
 void	semaphores(t_rules *main);
 void	init(t_rules *main, char **argv, int argc);
-int		parser(char **argv, int argc);
-int		ft_isdigit(int c);
 void	philo_start(t_rules *main);
-int		ft_isdigit(int c);
-int		ft_atoi_s(const char *str);
 
 #endif

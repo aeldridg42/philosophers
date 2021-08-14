@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 18:14:11 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 20:57:59 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 12:41:08 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	everyoneate(t_rules *rules)
 
 static int	someonedead(t_rules *rules, int i)
 {
-	if (get_time() - rules->philos[i].lasteat > rules->time2die)
+	if (get_time() - rules->philos[i - 1].lasteat > rules->time2die)
 	{
 		rules->isdead = 0;
 		pthread_mutex_lock(&rules->write);
@@ -51,7 +51,7 @@ void	checkphilo(t_rules *rules)
 		check = 0;
 		while (++i <= rules->philocount)
 		{
-			check += rules->philos[i].count;
+			check += rules->philos[i - 1].count;
 			if (someonedead(rules, i))
 				return ;
 		}

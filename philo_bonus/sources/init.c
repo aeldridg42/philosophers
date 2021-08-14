@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:39:09 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 11:55:24 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 13:24:46 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init(t_rules *main, char **argv, int argc)
 	main->time2sleep = ft_atoi_s(argv[4]);
 	main->numb = 1;
 	main->p = malloc(sizeof(int) * main->philocount);
-	if (!main->p)
+	if (!main->p || !main->philocount)
 		exit(1);
 	while (i < main->philocount)
 		main->p[i++] = -1;

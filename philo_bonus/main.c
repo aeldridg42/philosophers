@@ -6,13 +6,13 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:22:13 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 12:22:42 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 14:17:16 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo_bonus.h"
 
-static void	semclose(t_rules *main)
+static void	semsclose(t_rules *main)
 {
 	sem_unlink("mainname2");
 	sem_unlink("takefork");
@@ -37,7 +37,7 @@ static void	*checkeat(void *a)
 		waitpid(main->p[i--], 0, 0);
 	printf(RED"%ld  Everyone ate %d times\n", get_ms(main->start_time),
 		main->need2eat);
-	semclose(main);
+	semsclose(main);
 	exit(1);
 }
 
@@ -63,9 +63,9 @@ int	main(int argc, char **argv)
 	}
 	sem_wait(main.dead);
 	i = main.philocount - 1;
-	while (i)
+	while (i > 0)
 		kill(main.p[i--], SIGKILL);
-	semclose(&main);
+	semsclose(&main);
 	free(main.p);
 	return (1);
 }

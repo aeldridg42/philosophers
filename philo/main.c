@@ -6,11 +6,20 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 20:09:02 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 21:00:04 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 13:14:31 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosophers.h"
+
+static void	destroing_mutexes(t_rules *rules)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= rules->philocount)
+		pthread_mutex_destroy(&rules->mutex[i]);
+}
 
 int	main(int argc, char **argv)
 {
@@ -27,12 +36,13 @@ int	main(int argc, char **argv)
 	if (thread_start(&rules))
 	{
 		printf("Thread creating error.\n");
-		magicfree(&rules);
+		free(rules.philos);
 		return (1);
 	}
 	checkphilo(&rules);
 	gettimeofday(&rules.current, NULL);
 	uusleep(10, rules.current);
-	magicfree(&rules);
+	free(rules.philos);
+	destroing_mutexes(&rules);
 	return (0);
 }

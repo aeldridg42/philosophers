@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:48:10 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 13:24:11 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 12:51:42 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ void	forks(t_rules *rules)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (rules->philocount == 1)
 	{
-		rules->philos[1].l_fork = 1;
-		rules->philos[1].r_fork = 1;
+		rules->philos[0].l_fork = 0;
+		rules->philos[0].r_fork = 0;
 		return ;
 	}
 	while (++i <= rules->philocount)
 	{
 		rules->philos[i].l_fork = i;
 		if ((i + 1) % rules->philocount == 0)
-			rules->philos[i].r_fork = i + 1;
-		else
 			rules->philos[i].r_fork = (i + 1) % rules->philocount;
+		else
+			rules->philos[i].r_fork = i + 1;
 	}
 }
 
@@ -57,8 +57,8 @@ int	thread_start(t_rules *rules)
 	{
 		if (i % 2)
 		{
-			if (pthread_create(&rules->philos[i].t, NULL, loop,
-					(void *)&rules->philos[i]) != 0)
+			if (pthread_create(&rules->philos[i - 1].t, NULL, loop,
+					(void *)&rules->philos[i - 1]) != 0)
 				return (1);
 			usleep(50);
 		}
@@ -68,8 +68,8 @@ int	thread_start(t_rules *rules)
 	{
 		if (i % 2 == 0)
 		{
-			if (pthread_create(&rules->philos[i].t, NULL, loop,
-					(void *)&rules->philos[i]) != 0)
+			if (pthread_create(&rules->philos[i - 1].t, NULL, loop,
+					(void *)&rules->philos[i - 1]) != 0)
 				return (1);
 			usleep(50);
 		}

@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:30:59 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/12 16:14:41 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 12:58:31 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,5 @@ void	*loop(void *a);
 void	forks(t_rules *rules);
 void	checkphilo(t_rules *rules);
 void	uusleep(long time, struct timeval now);
-void	magicfree(t_rules *rules);
 
 #endif

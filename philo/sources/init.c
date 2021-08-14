@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 16:10:58 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/12 17:24:56 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 12:58:49 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	init(char **argv, t_rules *rules, int argc)
 		return (1);
 	}
 	while (++i <= rules->philocount)
-		rules->philos[i].count = rules->eat_times;
+		rules->philos[i - 1].count = rules->eat_times;
 	return (0);
 }
 
@@ -65,14 +65,13 @@ int	mutex_init(t_rules *rules)
 	i = 0;
 	while (++i <= rules->philocount)
 	{
-		if (pthread_mutex_init(&rules->mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&rules->mutex[i - 1], NULL) != 0)
 		{
 			printf("Mutex creating error\n");
-			magicfree(rules);
 			return (1);
 		}
-		rules->philos[i].num = i;
-		rules->philos[i].rules = rules;
+		rules->philos[i - 1].num = i;
+		rules->philos[i - 1].rules = rules;
 	}
 	return (0);
 }
