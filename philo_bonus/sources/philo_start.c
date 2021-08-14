@@ -6,13 +6,13 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:51:12 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 20:28:22 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 14:23:28 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-void	philo_start(t_rules *main)
+void	philo_start(t_main *main)
 {
 	int	i;
 

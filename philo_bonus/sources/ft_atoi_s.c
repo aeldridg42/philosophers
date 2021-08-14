@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:48:01 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 18:58:17 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 14:22:45 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_atoi_s(const char *str)
 		if ((i > int_max + 1 && neg == -1) || (i > int_max && neg == 1))
 		{
 			printf("%s - is greater that MAX_INT.\n", copy);
-			return (-1);
+			exit (-1);
 		}
 	}
 	return ((int)i * neg);

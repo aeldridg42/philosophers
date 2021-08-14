@@ -6,35 +6,35 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 18:14:11 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 12:41:08 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 14:21:02 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static void	everyoneate(t_rules *rules)
+static void	everyoneate(t_main *main)
 {
-	rules->isdead = 0;
-	pthread_mutex_lock(&rules->write);
+	main->isdead = 0;
+	pthread_mutex_lock(&main->write);
 	usleep(50);
-	printf(RED"%ld  everyone ate %d times\n", get_ms(rules->start_time),
-		rules->eat_times);
+	printf(RED"%ld  everyone ate %d times\n", get_ms(main->start_time),
+		main->eat_times);
 }
 
-static int	someonedead(t_rules *rules, int i)
+static int	someonedead(t_main *main, int i)
 {
-	if (get_time() - rules->philos[i - 1].lasteat > rules->time2die)
+	if (get_time() - main->philos[i - 1].lasteat > main->time2die)
 	{
-		rules->isdead = 0;
-		pthread_mutex_lock(&rules->write);
+		main->isdead = 0;
+		pthread_mutex_lock(&main->write);
 		usleep(50);
-		printf(RED"%ld  %d died\n", get_ms(rules->start_time), i);
+		printf(RED"%ld  %d died\n", get_ms(main->start_time), i);
 		return (1);
 	}
 	return (0);
 }
 
-void	checkphilo(t_rules *rules)
+void	checkphilo(t_main *main)
 {
 	int	i;
 	int	check;
@@ -45,14 +45,14 @@ void	checkphilo(t_rules *rules)
 		i = 0;
 		if (check == 0)
 		{
-			everyoneate(rules);
+			everyoneate(main);
 			return ;
 		}
 		check = 0;
-		while (++i <= rules->philocount)
+		while (++i <= main->philocount)
 		{
-			check += rules->philos[i - 1].count;
-			if (someonedead(rules, i))
+			check += main->philos[i - 1].count;
+			if (someonedead(main, i))
 				return ;
 		}
 	}

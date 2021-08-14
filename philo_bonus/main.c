@@ -6,13 +6,13 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:22:13 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 14:17:16 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 15:13:21 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo_bonus.h"
 
-static void	semsclose(t_rules *main)
+static void	semsclose(t_main *main)
 {
 	sem_unlink("mainname2");
 	sem_unlink("takefork");
@@ -27,14 +27,16 @@ static void	semsclose(t_rules *main)
 
 static void	*checkeat(void *a)
 {
-	t_rules	*main;
+	t_main	*main;
 	int		i;
 
 	i = 0;
-	main = (t_rules *)a;
+	main = (t_main *)a;
 	i = main->philocount - 1;
-	while (i)
+	while (i >= 0)
 		waitpid(main->p[i--], 0, 0);
+	if (main->deathcheck)
+		return (NULL);
 	printf(RED"%ld  Everyone ate %d times\n", get_ms(main->start_time),
 		main->need2eat);
 	semsclose(main);
@@ -43,18 +45,15 @@ static void	*checkeat(void *a)
 
 int	main(int argc, char **argv)
 {
-	int			i;
-	t_rules		main;
+	t_main		main;
 	pthread_t	t_m;
 
-	i = 0;
 	parser(argv, argc);
 	init(&main, argv, argc);
 	semaphores(&main);
 	main.start = get_time();
 	gettimeofday(&main.start_time, NULL);
 	philo_start(&main);
-	gettimeofday(&main.current, NULL);
 	usleep(200);
 	if (argc == 6)
 	{
@@ -62,9 +61,9 @@ int	main(int argc, char **argv)
 		pthread_detach(t_m);
 	}
 	sem_wait(main.dead);
-	i = main.philocount - 1;
-	while (i > 0)
-		kill(main.p[i--], SIGKILL);
+	main.deathcheck = 1;
+	while (--main.philocount >= 0)
+		kill(main.p[main.philocount], SIGKILL);
 	semsclose(&main);
 	free(main.p);
 	return (1);

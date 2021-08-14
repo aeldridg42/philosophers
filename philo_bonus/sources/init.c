@@ -6,13 +6,13 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:39:09 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 13:24:46 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 15:02:07 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-void	semaphores(t_rules *main)
+void	semaphores(t_main *main)
 {
 	sem_unlink("mainname2");
 	sem_unlink("takefork");
@@ -24,7 +24,7 @@ void	semaphores(t_rules *main)
 	main->dead = sem_open("dead", O_CREAT, 0666, 1);
 }
 
-void	init(t_rules *main, char **argv, int argc)
+void	init(t_main *main, char **argv, int argc)
 {
 	int	i;
 
@@ -34,8 +34,14 @@ void	init(t_rules *main, char **argv, int argc)
 	main->time2eat = ft_atoi_s(argv[3]);
 	main->time2sleep = ft_atoi_s(argv[4]);
 	main->numb = 1;
+	main->deathcheck = 0;
+	if (main->philocount == 0 || main->philocount > 300)
+	{
+		printf("Recomended values are 1 - 200\n");
+		exit (1);
+	}
 	main->p = malloc(sizeof(int) * main->philocount);
-	if (!main->p || !main->philocount)
+	if (!main->p)
 		exit(1);
 	while (i < main->philocount)
 		main->p[i++] = -1;

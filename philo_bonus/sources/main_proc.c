@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:29:12 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 11:49:14 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/14 15:02:47 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	*checkdeath(void *a)
 {
-	t_rules	*main;
+	t_main	*main;
 
-	main = (t_rules *)a;
+	main = (t_main *)a;
 	pthread_detach(main->t);
 	while (1)
 	{
@@ -30,14 +30,14 @@ static void	*checkdeath(void *a)
 	}
 }
 
-static void	lockprint(t_rules *main, char *str)
+static void	lockprint(t_main *main, char *str)
 {
 	sem_wait(main->writing);
 	printf("%ld  %d%s", get_ms(main->start_time), main->numb, str);
 	sem_post(main->writing);
 }
 
-void	eating(t_rules *main)
+void	eating(t_main *main)
 {
 	main->lasteat = main->start;
 	pthread_create(&main->t, NULL, checkdeath, (void *)main);
