@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 20:09:02 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/12 16:13:35 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/13 21:00:04 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	checkphilo(&rules);
+	gettimeofday(&rules.current, NULL);
+	uusleep(10, rules.current);
 	magicfree(&rules);
 	return (0);
 }

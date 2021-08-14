@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:48:10 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/12 16:49:32 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/13 13:24:11 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	*loop(void *a)
 	{
 		if (eeeating(philo) == -1)
 			break ;
-		if (philo->count != 0)
-			philo->count -= 1;
 	}
 	return (NULL);
 }

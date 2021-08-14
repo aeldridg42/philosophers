@@ -1,37 +1,71 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <semaphore.h>
-#include <stdlib.h>
-#include <sys/time.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/13 18:22:13 by aeldridg          #+#    #+#             */
+/*   Updated: 2021/08/14 12:22:42 by aeldridg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-sem_t *sem;
+#include "includes/philo_bonus.h"
 
-void check(void)
+static void	semclose(t_rules *main)
 {
-    usleep(100);
-    sem_wait(sem);
-    printf("hi\n");
-    sleep(1);
-    sem_post(sem);
+	sem_unlink("mainname2");
+	sem_unlink("takefork");
+	sem_unlink("writing");
+	sem_unlink("dead");
+	sem_close(main->sem);
+	sem_close(main->takefork);
+	sem_close(main->writing);
+	sem_post(main->dead);
+	sem_close(main->dead);
 }
 
-int main(int argc, char **argv)
+static void	*checkeat(void *a)
 {
-    int i;
-    pid_t p;
+	t_rules	*main;
+	int		i;
 
-    i = 0;
-    sem = sem_open("checkname", O_CREAT, 0666, 10);
-    p = fork();
-    if (p == 0)
-    {
-        p = fork();
-        if (p == 0)
-        {
-            fork();
-        }
-    }
-    check();
-    wait(NULL);
-    return(1);
+	i = 0;
+	main = (t_rules *)a;
+	i = main->philocount - 1;
+	while (i)
+		waitpid(main->p[i--], 0, 0);
+	printf(RED"%ld  Everyone ate %d times\n", get_ms(main->start_time),
+		main->need2eat);
+	semclose(main);
+	exit(1);
+}
+
+int	main(int argc, char **argv)
+{
+	int			i;
+	t_rules		main;
+	pthread_t	t_m;
+
+	i = 0;
+	parser(argv, argc);
+	init(&main, argv, argc);
+	semaphores(&main);
+	main.start = get_time();
+	gettimeofday(&main.start_time, NULL);
+	philo_start(&main);
+	gettimeofday(&main.current, NULL);
+	usleep(200);
+	if (argc == 6)
+	{
+		pthread_create(&t_m, NULL, checkeat, (void *)&main);
+		pthread_detach(t_m);
+	}
+	sem_wait(main.dead);
+	i = main.philocount - 1;
+	while (i)
+		kill(main.p[i--], SIGKILL);
+	semclose(&main);
+	free(main.p);
+	return (1);
 }

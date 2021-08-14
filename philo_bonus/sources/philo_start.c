@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   magicfree.c                                        :+:      :+:    :+:   */
+/*   philo_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 16:12:49 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/13 20:40:11 by aeldridg         ###   ########.fr       */
+/*   Created: 2021/08/13 18:51:12 by aeldridg          #+#    #+#             */
+/*   Updated: 2021/08/13 20:28:22 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../includes/philo_bonus.h"
 
-void	magicfree(t_rules *rules)
+void	philo_start(t_rules *main)
 {
-	if (rules->philocount == 6)
+	int	i;
+
+	i = 0;
+	while (i < main->philocount)
 	{
-		free(rules->philos);
-		return ;
-	}
-	if (rules->philocount == 3)
-	{
-		free(rules->mutex);
-		free(rules->philos);
-	}
-	else
-	{
-		free(rules->philos);
-		free(rules->mutex);
+		main->p[i] = fork();
+		if (main->p[i] == 0)
+		{
+			if (i == 0)
+				sem_wait(main->dead);
+			eating(main);
+		}
+		else
+		{
+			main->numb++;
+			i++;
+		}
 	}
 }

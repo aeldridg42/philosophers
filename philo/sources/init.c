@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 16:10:58 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/12 16:13:28 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/12 17:24:56 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static int	checkstatus(t_rules *rules)
 		return (1);
 	}
 	if (rules->eat_times == 0)
+	{
+		printf("Let them eat at least once, don't be greedy\n");
 		return (1);
+	}
 	return (0);
 }
 
