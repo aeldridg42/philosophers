@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:30:59 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 14:20:52 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 12:13:38 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ long	get_time(void);
 void	*loop(void *a);
 void	forks(t_main *main);
 void	checkphilo(t_main *main);
-void	uusleep(long time, struct timeval now);
+void	uusleep(long time, struct timeval now, t_philo *philo);
 
 #endif

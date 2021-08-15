@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 20:09:02 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 14:21:51 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 12:37:48 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static void	destroing_mutexes(t_main *main)
 	int	i;
 
 	i = -1;
-	while (++i <= main->philocount)
+	while (++i < main->philocount)
 		pthread_mutex_destroy(&main->mutex[i]);
+	pthread_mutex_destroy(&main->write);
 }
 
 int	main(int argc, char **argv)
@@ -30,7 +31,6 @@ int	main(int argc, char **argv)
 	forks(&main);
 	if (mutex_init(&main))
 		return (1);
-	pthread_mutex_init(&main.write, NULL);
 	gettimeofday(&main.start_time, NULL);
 	main.start = get_time();
 	if (thread_start(&main))
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	}
 	checkphilo(&main);
 	gettimeofday(&main.current, NULL);
-	uusleep(10, main.current);
+	usleep(200);
 	free(main.philos);
 	destroing_mutexes(&main);
 	return (0);

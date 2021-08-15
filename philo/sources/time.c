@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:28:23 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/11 14:42:37 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 12:12:23 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ long	get_ms(struct timeval current)
 	return ((new.tv_sec * 1000) + (new.tv_usec / 1000));
 }
 
-void	uusleep(long time, struct timeval now)
+void	uusleep(long time, struct timeval now, t_philo *philo)
 {
 	long	cur_time;
 
@@ -35,7 +35,7 @@ void	uusleep(long time, struct timeval now)
 	while (1)
 	{
 		usleep(200);
-		if (get_ms(now) >= cur_time + time)
+		if (get_ms(now) >= cur_time + time || !philo->main->isdead)
 			break ;
 	}
 }

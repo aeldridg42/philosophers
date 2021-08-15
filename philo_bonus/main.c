@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:22:13 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 15:13:21 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 13:18:34 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int	main(int argc, char **argv)
 		kill(main.p[main.philocount], SIGKILL);
 	semsclose(&main);
 	free(main.p);
-	return (1);
+	exit(1);
 }

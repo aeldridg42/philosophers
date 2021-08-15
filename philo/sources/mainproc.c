@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:51:05 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 14:21:23 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 12:13:06 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	eeeating(t_philo *philo)
 	philo->lasteat = get_time();
 	lockprint(philo, " is eating\n");
 	gettimeofday(&philo->main->current, NULL);
-	uusleep(philo->main->time2eat, philo->main->current);
+	uusleep(philo->main->time2eat, philo->main->current, philo);
 	pthread_mutex_unlock(&philo->main->mutex[philo->r_fork]);
 	pthread_mutex_unlock(&philo->main->mutex[philo->l_fork]);
 	if (philo->main->isdead == 0)
@@ -46,7 +46,7 @@ int	eeeating(t_philo *philo)
 		philo->count -= 1;
 	gettimeofday(&philo->main->current, NULL);
 	lockprint(philo, " is sleeping\n");
-	uusleep(philo->main->time2sleep, philo->main->current);
+	uusleep(philo->main->time2sleep, philo->main->current, philo);
 	if (philo->main->isdead == 0)
 		return (-1);
 	lockprint(philo, " is thinking\n");

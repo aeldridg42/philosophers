@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 16:10:58 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/14 14:27:48 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/15 12:38:28 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	mutex_init(t_main *main)
 		}
 		main->philos[i - 1].num = i;
 		main->philos[i - 1].main = main;
+	}
+	if (pthread_mutex_init(&main->write, NULL) != 0)
+	{
+		printf("Mutex creating error\n");
+		return (1);
 	}
 	return (0);
 }
